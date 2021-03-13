@@ -32,6 +32,11 @@ namespace Lab1
 						AddNewInfoCommand();
 						break;
 					}
+					case 7:
+					{
+						DeleteProfileCommand();
+						break;
+					}
 					case 8:
 					{
 						ShowAllContactsCommand();
@@ -78,6 +83,34 @@ namespace Lab1
 			}
 		}
 
+        private static void DeleteProfileCommand()
+        {
+			Console.WriteLine();
+
+			if (!phonebook.IsValidProfileId())
+			{
+				Console.WriteLine("Нельзя удалить то, чего ещё нет");
+				Console.WriteLine();
+				return;
+			}
+
+			
+			Console.WriteLine("Вы уверены, что хотите удалить профиль этого человека?");
+			Console.WriteLine(phonebook.GetShortInfo());
+			Console.WriteLine();
+			Int64 choice = IntInputValidator("Да - 1 | Нет - любое число другое");
+			if (choice != 1)
+			{
+				Console.WriteLine();
+				return;
+			}
+
+			phonebook.DeleteProfile();
+			Console.WriteLine("Профиль удалён");
+			Console.WriteLine();
+			return;
+		}
+
         private static void ShowInitialInfoCommand()
         {
 			Console.WriteLine();
@@ -85,6 +118,7 @@ namespace Lab1
 			Console.WriteLine("Чтобы добавить новый контакт нажмите 1");
 			Console.WriteLine("Чтобы отобразить полную информацию о выбранном контакте нажмите 2");
 			Console.WriteLine("Чтобы добавить/изменить информацию о выбранном контакте нажмите 3");
+			Console.WriteLine("Чтобы удалить выбранный контакт нажмите 7");
 			Console.WriteLine("Чтобы вывести все контакты нажмите 8");
 			Console.WriteLine("Чтобы перейти на следующую запись нажмите 6");
 			Console.WriteLine("Чтобы перейти на предыдущую запись нажмите 4");
@@ -325,6 +359,18 @@ namespace Lab1
 			correntProfileId = profiles.FindIndex(0, value => value == newProfile);
 		}
 
+		public void DeleteProfile()
+		{
+			if (!IsValidProfileId())
+			{
+				Console.WriteLine("Не-не-не так не пойдёт");
+				return;
+			}
+
+			profiles.RemoveAt(correntProfileId);
+			GoToPreviousProfile();
+		}
+
 		public void EditPatronymic(String newPatronymic)
 		{
 			if (!IsValidProfileId())
@@ -426,7 +472,7 @@ namespace Lab1
 
 		public bool IsValidProfileId()
 		{
-			if (correntProfileId>= profiles.Count)
+			if (correntProfileId >= profiles.Count)
 				return false;
 
 			if (correntProfileId < 0)
@@ -469,7 +515,7 @@ namespace Lab1
 			return $"Пользователь: {Name} {Surname} {(Patronymic ?? "")}\n" +
 				   $"Номер телефона: {PhoneNumber}\n" +
 				   $"Страна: {(Country ?? "Не задана")}\n" +
-				   $"День рождения: {(Birthday ?? "Не задана")}\n" +
+				   $"День рождения: {(Birthday ?? "Не задан")}\n" +
 				   $"Организация: {(Organisation ?? "Не задана")}\n" +
 				   $"Должность: {(Job ?? "Не задана")}\n" +
 				   $"Дополнительная заметка: {(Notes ?? "Не задана")}\n";
