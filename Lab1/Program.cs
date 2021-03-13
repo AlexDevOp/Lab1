@@ -114,7 +114,7 @@ namespace Lab1
         private static void ShowInitialInfoCommand()
         {
 			Console.WriteLine();
-			Console.WriteLine("Добро пожаловать в Записную книжку!");
+			Console.WriteLine("Добро пожаловать в \"Записную телефонную книжку\"!");
 			Console.WriteLine("Чтобы добавить новый контакт, нажмите 1.");
 			Console.WriteLine("Чтобы отобразить полную информацию о выбранном контакте, нажмите 2.");
 			Console.WriteLine("Чтобы добавить/изменить информацию о выбранном контакте, нажмите 3.");
