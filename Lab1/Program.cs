@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Lab1
@@ -89,7 +88,7 @@ namespace Lab1
 
 			if (!phonebook.IsValidProfileId())
 			{
-				Console.WriteLine("Нельзя удалить то, чего ещё нет");
+				Console.WriteLine("Нельзя удалить то, чего ещё нет!");
 				Console.WriteLine();
 				return;
 			}
@@ -98,7 +97,7 @@ namespace Lab1
 			Console.WriteLine("Вы уверены, что хотите удалить профиль этого человека?");
 			Console.WriteLine(phonebook.GetShortInfo());
 			Console.WriteLine();
-			Int64 choice = IntInputValidator("Да - 1 | Нет - любое число другое");
+			Int64 choice = IntInputValidator("Да - 1 | Нет - любое другое число");
 			if (choice != 1)
 			{
 				Console.WriteLine();
@@ -485,18 +484,18 @@ namespace Lab1
 
 		public String ShowShortInfo()
 		{
-			return $"Пользователь: {Name} {Surname} {(Patronymic ?? "")} | Номер телефона: {PhoneNumber}";
+			return $"Пользователь: {Name} {Surname}{(Patronymic == null ? "" : " " + Patronymic)} | Номер телефона: {PhoneNumber}";
 		}
 
 		public override string ToString()
 		{
-			return $"Пользователь: {Name} {Surname} {(Patronymic ?? "")}\n" +
+			return $"Пользователь: {Name} {Surname}{(Patronymic == null ? "" : " " + Patronymic + " ")}\n" +
 				   $"Номер телефона: {PhoneNumber}\n" +
-				   $"Страна: {(Country ?? "Не задана")}\n" +
-				   $"День рождения: {(Birthday ?? "Не задан")}\n" +
-				   $"Организация: {(Organisation ?? "Не задана")}\n" +
-				   $"Должность: {(Job ?? "Не задана")}\n" +
-				   $"Дополнительная заметка: {(Notes ?? "Не задана")}\n";
+				   $"Страна: {Country}\n" +
+				   $"День рождения: {Birthday ?? "Не задан"}\n" +
+				   $"Организация: {Organisation ?? "Не задана"}\n" +
+				   $"Должность: {Job ?? "Не задана"}\n" +
+				   $"Дополнительная заметка: {Notes ?? "Не задана"}\n";
 		}
 
 	}
