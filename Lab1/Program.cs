@@ -162,16 +162,16 @@ namespace Lab1
 			phonebook.GetFullInfoAboutProfile();
 
 			Console.WriteLine();
-			Console.WriteLine("Чтобы изменить имя нажмите 1");
-			Console.WriteLine("Чтобы изменить фамилию нажмите 2");
-			Console.WriteLine("Чтобы добавить/изменить отчество нажмите 3");
-			Console.WriteLine("Чтобы изменить номер телефона нажмите 4");
-			Console.WriteLine("Чтобы изменить страну нажмите 5");
-			Console.WriteLine("Чтобы добавить/изменить день рождения нажмите 6");
-			Console.WriteLine("Чтобы добавить/изменить организацию нажмите 7");
-			Console.WriteLine("Чтобы добавить/изменить должность нажмите 8");
-			Console.WriteLine("Чтобы добавить/изменить доп. заметку нажмите 9");
-			Console.WriteLine("Чтобы вернуться нажмите 0");
+			Console.WriteLine("Чтобы изменить имя, нажмите 1.");
+			Console.WriteLine("Чтобы изменить фамилию, нажмите 2.");
+			Console.WriteLine("Чтобы добавить/изменить отчество, нажмите 3.");
+			Console.WriteLine("Чтобы изменить номер телефона, нажмите 4.");
+			Console.WriteLine("Чтобы изменить страну, нажмите 5.");
+			Console.WriteLine("Чтобы добавить/изменить день рождения, нажмите 6.");
+			Console.WriteLine("Чтобы добавить/изменить организацию, нажмите 7.");
+			Console.WriteLine("Чтобы добавить/изменить должность, нажмите 8.");
+			Console.WriteLine("Чтобы добавить/изменить доп. заметку, нажмите 9.");
+			Console.WriteLine("Чтобы вернуться, нажмите 0.");
 
 
 			switch (IntInputValidator("Введите команду"))
@@ -301,6 +301,13 @@ namespace Lab1
 			correntProfileId = -1;
 		}
 
+		public void AddNewProfile(Int64 newPhoneNumber, String newName, String newSurname, String newCountry)
+		{
+			Profile newProfile = new(newPhoneNumber, newName, newSurname, newCountry);
+			profiles.Add(newProfile);
+			correntProfileId = profiles.FindIndex(0, value => value == newProfile);
+		}
+
 		public void GoToNextProfile()
 		{
 			if (correntProfileId + 1 >= profiles.Count)
@@ -323,17 +330,6 @@ namespace Lab1
 			correntProfileId--;
 		}
 
-		public void GetFullInfoAboutProfile()
-		{
-			if (!IsValidProfileId())
-			{
-				Console.WriteLine("Не-не-не так не пойдёт");
-				return;
-			}
-
-			Console.WriteLine(profiles[correntProfileId]);
-		}
-
 		public void ShowAllProfiles()
 		{
 			foreach (Profile profile in profiles)
@@ -346,26 +342,24 @@ namespace Lab1
 		{
 			if (!IsValidProfileId())
 			{
-				return "Не-не-не так не пойдёт";
+				return "Не-не-не, так не пойдёт";
 			}
 
 			return profiles[correntProfileId].ShowShortInfo();
 		}
 
-		public void AddNewProfile(Int64 newPhoneNumber, String newName, String newSurname, String newCountry)
+		public void GetFullInfoAboutProfile()
 		{
-			Profile newProfile = new (newPhoneNumber, newName, newSurname, newCountry);
-			profiles.Add(newProfile);
-			correntProfileId = profiles.FindIndex(0, value => value == newProfile);
+			if (!IsWorkable())
+				return;
+
+			Console.WriteLine(profiles[correntProfileId]);
 		}
 
 		public void DeleteProfile()
 		{
-			if (!IsValidProfileId())
-			{
-				Console.WriteLine("Не-не-не так не пойдёт");
+			if (!IsWorkable())
 				return;
-			}
 
 			profiles.RemoveAt(correntProfileId);
 			GoToPreviousProfile();
@@ -373,101 +367,85 @@ namespace Lab1
 
 		public void EditPatronymic(String newPatronymic)
 		{
-			if (!IsValidProfileId())
-			{
-				Console.WriteLine("Не-не-не так не пойдёт");
+			if (!IsWorkable())
 				return;
-			}
 
 			profiles[correntProfileId].Patronymic = newPatronymic;
 		}
 
 		public void EditName(String newName)
 		{
-			if (!IsValidProfileId())
-			{
-				Console.WriteLine("Не-не-не так не пойдёт");
+			if (!IsWorkable())
 				return;
-			}
 
 			profiles[correntProfileId].Name = newName;
 		}
 
 		public void EditSurname(String newSurname)
 		{
-			if (!IsValidProfileId())
-			{
-				Console.WriteLine("Не-не-не так не пойдёт");
+			if (!IsWorkable())
 				return;
-			}
 
 			profiles[correntProfileId].Surname = newSurname;
 		}
 
 		public void EditPhoneNumber(Int64 newPhoneNumber)
 		{
-			if (!IsValidProfileId())
-			{
-				Console.WriteLine("Не-не-не так не пойдёт");
+			if (!IsWorkable())
 				return;
-			}
 
 			profiles[correntProfileId].PhoneNumber = newPhoneNumber;
 		}
 
 		public void EditCountry(String newCountry)
 		{
-			if (!IsValidProfileId())
-			{
-				Console.WriteLine("Не-не-не так не пойдёт");
+			if (!IsWorkable())
 				return;
-			}
 
 			profiles[correntProfileId].Country = newCountry;
 		}
 
 		public void EditBirthday(String newBirthday)
 		{
-			if (!IsValidProfileId())
-			{
-				Console.WriteLine("Не-не-не так не пойдёт");
+			if (!IsWorkable())
 				return;
-			}
 
 			profiles[correntProfileId].Birthday = newBirthday;
 		}
 
 		public void EditOrganisation(String newOrganisation)
 		{
-			if (!IsValidProfileId())
-			{
-				Console.WriteLine("Не-не-не так не пойдёт");
+			if (!IsWorkable())
 				return;
-			}
 
 			profiles[correntProfileId].Organisation = newOrganisation;
 		}
 
 		public void EditJob(String newJob)
 		{
-			if (!IsValidProfileId())
-			{
-				Console.WriteLine("Не-не-не так не пойдёт");
+			if (!IsWorkable())
 				return;
-			}
 
 			profiles[correntProfileId].Job = newJob;
 		}
 
 		public void EditNotes(String newNotes)
 		{
-			if (!IsValidProfileId())
-			{
-				Console.WriteLine("Не-не-не так не пойдёт");
+			if (!IsWorkable())
 				return;
-			}
 
 			profiles[correntProfileId].Notes = newNotes;
+		}
+
+		private bool IsWorkable()
+		{
+			if (!IsValidProfileId())
+			{
+				Console.WriteLine("Не-не-не, так не пойдёт!");
+				return false;
+			}
+
+			return true;
 		}
 
 		public bool IsValidProfileId()
